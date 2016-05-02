@@ -1,0 +1,68 @@
+2016-05-01 23:25:44 INFO  IndexerImpl:58 - Start indexing document : org.lucene.custom.Book@75bd9247
+2016-05-01 23:25:44 INFO  IndexerImpl:70 - id = 125
+2016-05-01 23:25:44 INFO  IndexerImpl:70 - title = Spring in action
+2016-05-01 23:25:44 INFO  IndexerImpl:70 - content = C:\Users\samia\Desktop\Ali\Ali M.docx
+2016-05-01 23:25:44 INFO  IndexerImpl:105 - 
+2016-05-01 23:25:44 INFO  IndexerImpl:75 - End indexing document : org.lucene.custom.Book@75bd9247
+2016-05-01 23:27:03 INFO  IndexerImpl:58 - Start indexing document : org.lucene.custom.Book@75bd9247
+2016-05-01 23:27:03 INFO  IndexerImpl:70 - id = 125
+2016-05-01 23:27:03 INFO  IndexerImpl:70 - title = Spring in action
+2016-05-01 23:27:03 INFO  IndexerImpl:70 - content = C:\Users\samia\Desktop\Ali\Ali M.docx
+2016-05-01 23:27:03 INFO  IndexerImpl:105 - 
+2016-05-01 23:27:03 INFO  IndexerImpl:75 - End indexing document : org.lucene.custom.Book@75bd9247
+2016-05-01 23:33:38 INFO  IndexerImpl:58 - Start indexing document : org.lucene.custom.Book@7dc36524
+2016-05-01 23:33:38 INFO  IndexerImpl:70 - id = 125
+2016-05-01 23:33:38 INFO  IndexerImpl:70 - title = Spring in action
+2016-05-01 23:33:38 INFO  IndexerImpl:70 - content = C:\Users\samia\Desktop\Ali\Ali M.docx
+2016-05-01 23:49:54 INFO  IndexerImpl:58 - Start indexing document : org.lucene.custom.Book@2d3fcdbd
+2016-05-01 23:49:54 INFO  IndexerImpl:70 - id = 125
+2016-05-01 23:49:54 INFO  IndexerImpl:70 - title = Spring in action
+2016-05-01 23:49:54 INFO  IndexerImpl:70 - content = C:\Users\samia\Desktop\Ali\Ali M.docx
+2016-05-01 23:49:55 INFO  IndexerImpl:105 - Ali M’HIN
+Angle Mansour Dahbi & Hassan bn Tabit n°9 
+14000, Kénitra – MAROC
+alimhin@gmail.com
+Tel : (+212) 06 69 31 91 97
+
+
+A l’attention de Monsieur le Directeur des Ressources Humaines 
+
+Objet : Demande d’emploi    
+Monsieur, 
+J'ai l'honneur de vous soumettre ma candidature pour l'octroi d'un poste d’ingénieur au sein de votre organisation. 
+A 24 ans, je suis ingénieur d'état en informatique diplômé de l'Ecole Mohammadia d’Ingénieurs à Rabat au Maroc et doctorant en gestion à l’université Mohammed V - Agdal.
+Mon expérience dans le secteur de développent témoigne de mon intérêt pour les nouvelles technologies. De plus, j’ai développé mon goût pour le relationnel et le travail en équipe lors de mon premier emploi, mes projet en freelance, mon stage de fin d'études et aussi lors de la réalisation des projets au sein de mon école ainsi qu'aux différentes compétitions nationales où j'ai participé. En effet, tous les projets que j'ai réalisés portent sur la conception et la réalisation de solutions informatiques. Ainsi, mon profil correspond à celui de l’analyste développeur. 
+Durant mon cursus scolaire et professionnel, j’ai toujours donné le meilleur de moi même, tout en mettant en avant mon esprit d'initiative ainsi que mon ouverture sur le monde socio-économique.
+Ma motivation pour votre organisation vient du fait qu’elle occupe une place importante dans le secteur de l’informatique. C’est ainsi que j'aimerais me joindre à votre groupe pour y apporter mon savoir faire en ingénierie, optimisation et organisation.
+             Les connaissances acquises durant ma formation, ma capacité d’adaptation aux situations nouvelles, ma motivation, mon dynamisme, mon esprit ouvert et compétitif, mon envie à relever les défis et à mener à bien toutes les missions qui me sont allouées sauront bénéficier à votre entreprise.    
+Enfin, je me tiens à votre disposition, pour vous rencontrer et vous fournir tout détail complémentaire me concernant et vous prie d’agréer l'expression de ma parfaite considération.
+                                                                                                                      Signé : Ali M’HIN
+
+2016-05-01 23:49:55 INFO  IndexerImpl:75 - End indexing document : org.lucene.custom.Book@2d3fcdbd
+2016-05-02 01:27:40 INFO  IndexerImpl:56 - Start indexing document : org.lucene.indexer.Book@458ad742
+2016-05-02 01:27:40 INFO  IndexerImpl:68 - id = 125
+2016-05-02 01:27:40 INFO  IndexerImpl:68 - title = Spring in action
+2016-05-02 01:27:40 INFO  IndexerImpl:68 - content = C:\Users\samia\Desktop\Ali\Ali M.docx
+2016-05-02 01:27:42 INFO  IndexerImpl:105 - Ali M’HIN
+Angle Mansour Dahbi & Hassan bn Tabit n°9 
+14000, Kénitra – MAROC
+alimhin@gmail.com
+Tel : (+212) 06 69 31 91 97
+
+
+A l’attention de Monsieur le Directeur des Ressources Humaines 
+
+Objet : Demande d’emploi    
+Monsieur, 
+J'ai l'honneur de vous soumettre ma candidature pour l'octroi d'un poste d’ingénieur au sein de votre organisation. 
+A 24 ans, je suis ingénieur d'état en informatique diplômé de l'Ecole Mohammadia d’Ingénieurs à Rabat au Maroc et doctorant en gestion à l’université Mohammed V - Agdal.
+Mon expérience dans le secteur de développent témoigne de mon intérêt pour les nouvelles technologies. De plus, j’ai développé mon goût pour le relationnel et le travail en équipe lors de mon premier emploi, mes projet en freelance, mon stage de fin d'études et aussi lors de la réalisation des projets au sein de mon école ainsi qu'aux différentes compétitions nationales où j'ai participé. En effet, tous les projets que j'ai réalisés portent sur la conception et la réalisation de solutions informatiques. Ainsi, mon profil correspond à celui de l’analyste développeur. 
+Durant mon cursus scolaire et professionnel, j’ai toujours donné le meilleur de moi même, tout en mettant en avant mon esprit d'initiative ainsi que mon ouverture sur le monde socio-économique.
+Ma motivation pour votre organisation vient du fait qu’elle occupe une place importante dans le secteur de l’informatique. C’est ainsi que j'aimerais me joindre à votre groupe pour y apporter mon savoir faire en ingénierie, optimisation et organisation.
+             Les connaissances acquises durant ma formation, ma capacité d’adaptation aux situations nouvelles, ma motivation, mon dynamisme, mon esprit ouvert et compétitif, mon envie à relever les défis et à mener à bien toutes les missions qui me sont allouées sauront bénéficier à votre entreprise.    
+Enfin, je me tiens à votre disposition, pour vous rencontrer et vous fournir tout détail complémentaire me concernant et vous prie d’agréer l'expression de ma parfaite considération.
+                                                                                                                      Signé : Ali M’HIN
+
+2016-05-02 01:27:42 INFO  IndexerImpl:73 - End indexing document : org.lucene.indexer.Book@458ad742
+2016-05-02 01:27:43 INFO  SearcherSimpleField:35 - total hits : 1
+2016-05-02 01:27:43 INFO  SearcherSimpleField:39 - Result : Spring in action
