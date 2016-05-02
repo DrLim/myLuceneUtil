@@ -2,6 +2,8 @@ package org.lucene.utils;
 
 import java.io.File;
 
+import org.lucene.exception.UnsupportedTypeValueException;
+
 public enum FieldType {
 	
 	STRING(String.class),
@@ -17,9 +19,13 @@ public enum FieldType {
 		this.clazz = clazz ;
 	}
 	
-	public static FieldType getFieldType(Class<?> clazz){
+	public static FieldType getFieldType(Class<?> clazz) throws UnsupportedTypeValueException{
 		String className = clazz.getName();
-		return FieldType.valueOf(className.substring(className.lastIndexOf('.')+1).toUpperCase());
+		try{
+			return FieldType.valueOf(className.substring(className.lastIndexOf('.')+1).toUpperCase());
+		}catch(IllegalArgumentException e){
+			throw new UnsupportedTypeValueException(e);
+		}
 	}
 
 	public Class<?> getClazz() {
