@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
@@ -28,8 +26,10 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.lucene.exception.DocumentNotIndexedException;
 import org.lucene.exception.UnsupportedTypeValueException;
-import org.lucene.indexer.Indexable;
 import org.lucene.indexer.Indexer;
+import org.lucene.utils.FieldDefinition;
+import org.lucene.utils.FieldType;
+import org.lucene.utils.Indexable;
 import org.xml.sax.SAXException;
 
 public final class IndexerImpl implements Indexer {
@@ -55,20 +55,10 @@ public final class IndexerImpl implements Indexer {
 			throws DocumentNotIndexedException {
 		LOGGER.info("Start indexing document : " + indexable);
 		Document document = new Document();
-		Iterator<Entry<String, Object>> it = indexable.getFieldsValue()
-				.entrySet().iterator();
-		Map<String, Boolean> isStoredField = indexable.getStoredFields();
-		while (it.hasNext()) {
-			Map.Entry<String, Object> pair = it.next();
-			String fieldName = pair.getKey();
-			Object fieldValue = pair.getValue();
-			Field.Store store = isStoredField.containsKey(pair.getKey()) ? (isStoredField
-					.get(pair.getKey()) ? Field.Store.YES : Field.Store.NO)
-					: Field.Store.NO;
-			LOGGER.info(pair.getKey() + " = " + pair.getValue());
-			Field field = createField(fieldName, fieldValue, store);
+		List<FieldDefinition> fields = indexable.getFields();
+		for(FieldDefinition fieldDef : fields){
+			Field field = createField(fieldDef);
 			document.add(field);
-			it.remove(); // avoids a ConcurrentModificationException
 		}
 		LOGGER.info("End indexing document : " + indexable);
 		return document;
@@ -88,39 +78,38 @@ public final class IndexerImpl implements Indexer {
 		}
 	}
 
-	private Field createField(String fieldName, Object fieldValue,
-			Field.Store store) throws DocumentNotIndexedException {
+	private Field createField(FieldDefinition fieldDef) throws DocumentNotIndexedException {
 		Field field;
-		if (fieldValue instanceof String) {
-			field = new TextField(fieldName, (String) fieldValue, store);
-		} else if (fieldValue instanceof File) {
-			File file = (File) fieldValue;
+		if (FieldType.STRING.equals(fieldDef.getType())) {
+			field = new TextField(fieldDef.getName(), (String) fieldDef.getValue(), fieldDef.getSotre());
+		} 
+		else if (FieldType.FILE.equals(fieldDef.getType())) {
+			File file = (File) fieldDef.getValue();
 			try {
 				BodyContentHandler handler = new BodyContentHandler();
-				 
 			    AutoDetectParser parser = new AutoDetectParser();
 			    Metadata metadata = new Metadata();
 			    try (FileInputStream stream = new FileInputStream(file);) {
 			        parser.parse(stream, handler, metadata);
 			        LOGGER.info(handler.toString());
-					field = new TextField(fieldName, handler.toString(), store);
+					field = new TextField(fieldDef.getName(), handler.toString(), fieldDef.getSotre());
 			    }
 				
 			} catch (IOException | SAXException | TikaException e) {
 				LOGGER.error("Error while indexing file");
 				throw new DocumentNotIndexedException(e.getMessage(), e);
 			}
-		} else if (fieldValue instanceof Integer) {
-			field = new IntField(fieldName, (int) fieldValue, store);
-		} else if (fieldValue instanceof Long) {
-			field = new LongField(fieldName, (int) fieldValue, store);
-		} else if (fieldValue instanceof Float) {
-			field = new FloatField(fieldName, (int) fieldValue, store);
-		} else if (fieldValue instanceof Double) {
-			field = new DoubleField(fieldName, (int) fieldValue, store);
+		} else if (FieldType.INTEGER.equals(fieldDef.getType())) {
+			field = new IntField(fieldDef.getName(), (int) fieldDef.getValue(), fieldDef.getSotre());
+		} else if (FieldType.LONG.equals(fieldDef.getType())) {
+			field = new LongField(fieldDef.getName(), (long) fieldDef.getValue(), fieldDef.getSotre());
+		} else if (FieldType.FLOAT.equals(fieldDef.getType())) {
+			field = new FloatField(fieldDef.getName(), (float) fieldDef.getValue(), fieldDef.getSotre());
+		} else if (FieldType.DOUBLE.equals(fieldDef.getType())) {
+			field = new DoubleField(fieldDef.getName(), (double) fieldDef.getValue(), fieldDef.getSotre());
 		} else {
 			throw new UnsupportedTypeValueException("Unsupported type : "
-					+ fieldValue.getClass().getName());
+					+ fieldDef.getValue().getClass().getName());
 		}
 		return field;
 	}

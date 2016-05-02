@@ -7,10 +7,10 @@ import org.apache.lucene.document.Document;
 import org.lucene.alalysis.CustomAnalyzer;
 import org.lucene.exception.DocumentNotIndexedException;
 import org.lucene.exception.SearcherException;
-import org.lucene.indexer.Book;
 import org.lucene.indexer.Indexer;
 import org.lucene.manager.IndexerManager;
 import org.lucene.manager.SearcherManager;
+import org.lucene.object.test.Book;
 import org.lucene.searcher.Searcher;
 
 public class Main {
@@ -25,7 +25,7 @@ public class Main {
 		}
 		
 		try{
-			Searcher searcher = SearcherManager.getSearcher("C:\\Users\\samia\\Desktop\\index", new CustomAnalyzer(), "title");
+			Searcher searcher = SearcherManager.getSearcher("C:\\Users\\samia\\Desktop\\index", new CustomAnalyzer(), new String[]{"title","content"});
 			List<Document> results = searcher.search("spring");
 			for(Document doc : results){
 				System.out.println(doc.get("title"));

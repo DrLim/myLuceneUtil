@@ -1,5 +1,6 @@
 package org.lucene.exception;
 
+
 public class UnsupportedTypeValueException extends DocumentNotIndexedException {
 
 	/**

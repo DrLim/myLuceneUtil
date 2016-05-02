@@ -1,17 +1,29 @@
 package org.lucene.utils;
 
+import java.io.File;
+
 public enum FieldType {
 	
-	STRING("string"),FILE("file"),INTEGER("int"),FLOAT("float"),LONG("long"),DOUBLE("double") ;
+	STRING(String.class),
+	FILE(File.class),
+	INTEGER(Integer.class),
+	FLOAT(Float.class),
+	LONG(Long.class),
+	DOUBLE(Double.class) ;
 	
-	private String value ;
+	private Class<?> clazz;
 	
-	private FieldType(String value) {
-		this.value = value;
+	private FieldType(Class<?> clazz) {
+		this.clazz = clazz ;
+	}
+	
+	public static FieldType getFieldType(Class<?> clazz){
+		String className = clazz.getName();
+		return FieldType.valueOf(className.substring(className.lastIndexOf('.')+1).toUpperCase());
 	}
 
-	public String getValue() {
-		return value;
+	public Class<?> getClazz() {
+		return clazz;
 	}
 	
 }
