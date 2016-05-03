@@ -25,6 +25,7 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.lucene.exception.DocumentNotIndexedException;
+import org.lucene.exception.ParseFileException;
 import org.lucene.exception.UnsupportedTypeValueException;
 import org.lucene.indexer.Indexer;
 import org.lucene.utils.FieldDefinition;
@@ -51,7 +52,59 @@ public final class IndexerImpl implements Indexer {
 	}
 
 	@Override
-	public Document getDocument(Indexable indexable)
+	public void indexDocument(Indexable indexable) throws DocumentNotIndexedException {
+		Document document;
+		try {
+			document = getDocument(indexable);
+			writer.addDocument(document);
+			writer.commit();
+		} catch (DocumentNotIndexedException | IOException e) {
+			LOGGER.error("Error while indexing document");
+			try {
+				writer.rollback();
+			} catch (IOException e1) {
+				LOGGER.error("Error while rolling back operation",e1);
+			}
+			throw new DocumentNotIndexedException(e);
+		}
+		finally{
+			try {
+				writer.close();
+			} catch (IOException e2) {
+				LOGGER.error("Error while closing indexer",e2);
+			}
+		}
+	}
+
+	@Override
+	public void indexDocuments(List<Indexable> indexables) throws DocumentNotIndexedException {
+		for(Indexable indexable : indexables){
+			Document document;
+			try {
+				document = getDocument(indexable);
+				writer.addDocument(document);
+			} catch (DocumentNotIndexedException | IOException e) {
+				LOGGER.error("Error while indexing document");
+				try {
+					writer.rollback();
+					writer.close();
+				} catch (IOException e1) {
+					LOGGER.error("Error while rolling back operation",e1);
+				}
+				throw new DocumentNotIndexedException(e);
+			}
+		}
+		try{
+			writer.commit();
+			writer.close();
+		}catch(IOException e){
+			LOGGER.error("Error while closing indexer",e);
+			throw new DocumentNotIndexedException(e);
+		}
+		
+	}
+	
+	private Document getDocument(Indexable indexable)
 			throws DocumentNotIndexedException {
 		LOGGER.info("Start indexing document : " + indexable);
 		Document document = new Document();
@@ -62,20 +115,6 @@ public final class IndexerImpl implements Indexer {
 		}
 		LOGGER.info("End indexing document : " + indexable);
 		return document;
-	}
-
-	@Override
-	public void indexDocument(Indexable indexable) throws DocumentNotIndexedException {
-		Document document;
-		try {
-			document = getDocument(indexable);
-			writer.addDocument(document);
-			writer.commit();
-			writer.close();
-		} catch (DocumentNotIndexedException | IOException e) {
-			LOGGER.error("Error while indexing document");
-			throw new DocumentNotIndexedException(e);
-		}
 	}
 
 	private Field createField(FieldDefinition fieldDef) throws DocumentNotIndexedException {
@@ -96,8 +135,8 @@ public final class IndexerImpl implements Indexer {
 			    }
 				
 			} catch (IOException | SAXException | TikaException e) {
-				LOGGER.error("Error while indexing file");
-				throw new DocumentNotIndexedException(e.getMessage(), e);
+				LOGGER.error("Error while parsing file");
+				throw new ParseFileException(e.getMessage(), e);
 			}
 		} else if (FieldType.INTEGER.equals(fieldDef.getType())) {
 			field = new IntField(fieldDef.getName(), (int) fieldDef.getValue(), fieldDef.getSotre());
