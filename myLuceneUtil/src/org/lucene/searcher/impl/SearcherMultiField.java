@@ -22,8 +22,8 @@ public class SearcherMultiField extends AbstractSearcher implements Searcher {
 	private MultiFieldQueryParser multiFieldQueryParser ;
 	
 	public SearcherMultiField(String indexDirectoryPath,Analyzer analyzer,String...fields) throws IOException{
-		super(indexDirectoryPath);
-		multiFieldQueryParser = new MultiFieldQueryParser(fields,analyzer);
+		super(indexDirectoryPath,analyzer);
+		multiFieldQueryParser = new MultiFieldQueryParser(fields,this.analyzer);
 	}
 
 	public MultiFieldQueryParser getMultiFieldQueryParser() {

@@ -22,8 +22,8 @@ public class SearcherSimpleField extends AbstractSearcher implements Searcher{
 	private QueryParser queryParser ;
 
 	public SearcherSimpleField(String indexDirectoryPath,Analyzer analyzer,String field) throws IOException{
-		super(indexDirectoryPath);
-		queryParser = new QueryParser(field,analyzer);
+		super(indexDirectoryPath,analyzer);
+		queryParser = new QueryParser(field,this.analyzer);
 	}
 	
 	@Override
