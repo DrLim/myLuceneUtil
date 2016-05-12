@@ -14,7 +14,6 @@ import org.lucene.indexer.Indexer;
 import org.lucene.manager.IndexerManager;
 import org.lucene.manager.SearcherManager;
 import org.lucene.manager.SuggesterManager;
-import org.lucene.object.test.Book;
 import org.lucene.searcher.Searcher;
 import org.lucene.suggest.Suggester;
 import org.lucene.suggest.impl.SuggesterType;
@@ -28,7 +27,7 @@ public class Main {
 		Indexer indexer = IndexerManager.getIndexer(DIR, new CustomAnalyzer(), true);
 		List<Indexable> books = new ArrayList<>();
 		for(int i =1 ; i<=5 ; i++){
-			books.add(new Book(i, "Pays"+i, "/home/soprano/Bureau/villes/pays"+i+".docx"));
+			//books.add(new Book(i, "Pays"+i, "/home/soprano/Bureau/villes/pays"+i+".docx"));
 			
 		}
 		try {
@@ -39,16 +38,7 @@ public class Main {
 		
 		
 
-		try {
-			Searcher searcher = SearcherManager.getSearcher(DIR, new CustomAnalyzer(),
-					new String[] { "title", "content" });
-			List<Document> results = searcher.search("Australia");
-			for (Document doc : results) {
-				System.out.println(doc.get("title"));
-			}
-		} catch (IOException | SearcherException e) {
-			e.printStackTrace();
-		}
+		
 
 		try {
 			Suggester suggester = SuggesterManager.getSuggester(DIR, new CustomAnalyzer(), SuggesterType.FUZZY);

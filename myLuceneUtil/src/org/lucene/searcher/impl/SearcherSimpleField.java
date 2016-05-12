@@ -2,7 +2,10 @@ package org.lucene.searcher.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
@@ -27,23 +30,26 @@ public class SearcherSimpleField extends AbstractSearcher implements Searcher{
 	}
 	
 	@Override
-	public List<Document> search(String textQuery) throws SearcherException {
+	public Map<String, Object> search(String textQuery) throws SearcherException {
+		Map<String,Object> infos = new HashMap<>();
 		List<Document> results = new ArrayList<>();
        	try {
 			Query query = this.queryParser.parse(textQuery);
 	        TopDocs topDocs = this.indexSearcher.search(query,10);
-	        LOGGER.info("total hits : "+topDocs.totalHits);
+	        long time2 = Calendar.getInstance().getTimeInMillis();
+	        infos.put(TOTAL_HITS, topDocs.totalHits);
 	        for (ScoreDoc scoreDoc : topDocs.scoreDocs) {  
 	        		Document document = indexSearcher.doc(scoreDoc.doc);
 	        		results.add(document);
 	        		LOGGER.info("Result : "+document.get(queryParser.getField()));
 				  
 	        }
+	        infos.put(RESULTS, results);
        	} catch (IOException | ParseException e) {
 			LOGGER.error(e);
 			throw new SearcherException();
 		} 
-        return results;
+        return infos;
 	}
 
 	public QueryParser getQueryParser() {

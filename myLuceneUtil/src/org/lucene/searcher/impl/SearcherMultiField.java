@@ -2,7 +2,9 @@ package org.lucene.searcher.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
@@ -24,6 +26,7 @@ public class SearcherMultiField extends AbstractSearcher implements Searcher {
 	public SearcherMultiField(String indexDirectoryPath,Analyzer analyzer,String...fields) throws IOException{
 		super(indexDirectoryPath,analyzer);
 		multiFieldQueryParser = new MultiFieldQueryParser(fields,this.analyzer);
+		multiFieldQueryParser.setAllowLeadingWildcard(Boolean.TRUE);
 	}
 
 	public MultiFieldQueryParser getMultiFieldQueryParser() {
@@ -35,21 +38,26 @@ public class SearcherMultiField extends AbstractSearcher implements Searcher {
 	}
 
 	@Override
-	public List<Document> search(String textQuery) throws SearcherException {
+	public Map<String,Object> search(String textQuery) throws SearcherException {
+		Map<String,Object> infos = new HashMap<>();
 		List<Document> results = new ArrayList<>();
        	try {
+       		long startTime = System.currentTimeMillis();
 			Query query = this.multiFieldQueryParser.parse(textQuery);
 	        TopDocs topDocs = this.indexSearcher.search(query,10);
-	        LOGGER.info("total hits : "+topDocs.totalHits);
+	        infos.put(TOTAL_HITS, topDocs.totalHits);
 	        for (ScoreDoc scoreDoc : topDocs.scoreDocs) {  
 	        		Document document = indexSearcher.doc(scoreDoc.doc);
 	        		results.add(document);
 	        }
+	        infos.put(RESULTS, results);
+	        long endTime = System.currentTimeMillis();
+	        infos.put(Searcher.DURATION,((double)(endTime-startTime))/1000);
        	} catch (IOException | ParseException e) {
 			LOGGER.error(e);
 			throw new SearcherException();
 		} 
-        return results;
+        return infos;
 	}
 
 }

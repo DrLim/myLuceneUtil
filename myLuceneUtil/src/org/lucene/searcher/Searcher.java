@@ -1,11 +1,15 @@
 package org.lucene.searcher;
 
-import java.util.List;
+import java.util.Map;
 
-import org.apache.lucene.document.Document;
 import org.lucene.exception.SearcherException;
 
 @FunctionalInterface
 public interface Searcher {
-	List<Document> search(String textQuery) throws SearcherException;
+	
+	final String TOTAL_HITS = "totalHits";
+	final String RESULTS = "results";
+	final String DURATION = "duration";
+	
+	Map<String, Object> search(String textQuery) throws SearcherException;
 }
