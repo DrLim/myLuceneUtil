@@ -27,10 +27,10 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.lucene.exception.DocumentNotIndexedException;
 import org.lucene.exception.ParseFileException;
 import org.lucene.exception.UnsupportedTypeValueException;
+import org.lucene.field.FieldDefinition;
+import org.lucene.field.FieldType;
+import org.lucene.indexer.Indexable;
 import org.lucene.indexer.Indexer;
-import org.lucene.utils.FieldDefinition;
-import org.lucene.utils.FieldType;
-import org.lucene.utils.Indexable;
 import org.xml.sax.SAXException;
 
 public final class IndexerImpl implements Indexer {
@@ -125,12 +125,12 @@ public final class IndexerImpl implements Indexer {
 		else if (FieldType.FILE.equals(fieldDef.getType())) {
 			File file = (File) fieldDef.getValue();
 			try {
-				BodyContentHandler handler = new BodyContentHandler();
+				BodyContentHandler handler = new BodyContentHandler(-1);
 			    AutoDetectParser parser = new AutoDetectParser();
 			    Metadata metadata = new Metadata();
 			    try (FileInputStream stream = new FileInputStream(file);) {
 			        parser.parse(stream, handler, metadata);
-			        LOGGER.info(handler.toString());
+			        //LOGGER.info(handler.toString());
 					field = new TextField(fieldDef.getName(), handler.toString(), fieldDef.getSotre());
 			    }
 				

@@ -1,4 +1,4 @@
-package org.lucene.utils;
+package org.lucene.field;
 
 import java.io.File;
 

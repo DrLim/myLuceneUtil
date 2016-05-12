@@ -1,4 +1,4 @@
-package org.lucene.utils;
+package org.lucene.field;
 
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;

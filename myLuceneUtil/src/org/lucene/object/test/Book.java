@@ -7,8 +7,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Field;
 import org.lucene.exception.UnsupportedTypeValueException;
-import org.lucene.utils.FieldDefinition;
-import org.lucene.utils.Indexable;
+import org.lucene.field.FieldDefinition;
+import org.lucene.indexer.Indexable;
 
 public class Book implements Indexable{
 	
@@ -60,13 +60,13 @@ public class Book implements Indexable{
 			LOGGER.error(e);
 		}
 		try {
-			def = new FieldDefinition("title", title, Field.Store.YES, false, true);
+			def = new FieldDefinition("title", title, Field.Store.YES, true, false);
 			fields.add(def);
 		} catch (UnsupportedTypeValueException e) {
 			LOGGER.error(e);
 		}
 		try {
-			def = new FieldDefinition("id", new File(path), Field.Store.YES, false, true);
+			def = new FieldDefinition("content", new File(path), Field.Store.YES, true, false);
 			fields.add(def);
 		} catch (UnsupportedTypeValueException e) {
 			LOGGER.error(e);
