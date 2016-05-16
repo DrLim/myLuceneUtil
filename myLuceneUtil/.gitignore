@@ -2,3 +2,5 @@
 /target/
 *.ucls
 *.log
+*.classpath
+*.project
